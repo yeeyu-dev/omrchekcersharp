@@ -131,7 +131,7 @@ public static class InteractionUtils
     /// <summary>获取主屏幕分辨率；非 Windows 平台返回 1920x1080。</summary>
     private static (int Width, int Height) DetectScreenSize()
     {
-        if (OperatingSystem.IsWindows())
+        if (Environment.OSVersion.Platform == PlatformID.Win32NT)
         {
             try
             {

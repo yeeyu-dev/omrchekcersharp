@@ -553,7 +553,7 @@ public sealed class ImageInstanceOps
             index += length;
         }
 
-        return Math.Clamp(index, 0, length);
+        return Math.Min(Math.Max(index, 0), length);
     }
 
     /// <summary>总体标准差（ddof = 0，同 np.std）。</summary>

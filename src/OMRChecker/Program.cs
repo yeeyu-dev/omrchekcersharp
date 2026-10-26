@@ -85,7 +85,7 @@ namespace OMRChecker
                     case "-i":
                     case "--inputDir":
                         args.InputPaths = new List<string>();
-                        while (i + 1 < argv.Length && !argv[i + 1].StartsWith('-'))
+                        while (i + 1 < argv.Length && !argv[i + 1].StartsWith("-", StringComparison.Ordinal))
                         {
                             args.InputPaths.Add(argv[++i]);
                         }

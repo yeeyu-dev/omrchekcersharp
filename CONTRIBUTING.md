@@ -9,7 +9,7 @@ and you can update each one for the latest changes on the upstream master indivi
 
 
 # Writing Code
-This repository is the C# (.NET 8) port of OMRChecker. Follow the conventions of the existing code
+This repository is the C# (.NET Framework 4.8) port of OMRChecker. Follow the conventions of the existing code
 (see `AGENTS.md` if present): Simplified Chinese comments, a summary comment on every function describing
 its purpose and edge cases, PascalCase for types/methods and camelCase for locals.
 

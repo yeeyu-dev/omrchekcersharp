@@ -206,7 +206,7 @@ public static class ImageUtils
                 var spec = value.GetValue<string>();
                 if (spec.Contains('-'))
                 {
-                    var parts = spec.Split('-', 2);
+                    var parts = spec.Split(new[] { '-' }, 2);
                     var start = parts[0].Length > 0 ? int.Parse(parts[0], CultureInfo.InvariantCulture) : 1;
                     var end = parts[1].Length > 0 ? int.Parse(parts[1], CultureInfo.InvariantCulture) : docLength;
                     return start > end ? new List<int>() : Enumerable.Range(start, end - start + 1).ToList();

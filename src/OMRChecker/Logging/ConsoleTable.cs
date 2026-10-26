@@ -74,7 +74,7 @@ public sealed class ConsoleTable
 
         var sb = new StringBuilder();
         var totalWidth = widths.Sum() + (3 * widths.Length) + 1;
-        if (!string.IsNullOrEmpty(Title))
+        if (Title is { Length: > 0 })
         {
             var pad = Math.Max(0, (totalWidth - DisplayWidth(Title)) / 2);
             sb.Append(' ', pad).AppendLine(Title);
@@ -105,7 +105,7 @@ public sealed class ConsoleTable
 
     /// <summary>绘制一条横向边框。</summary>
     private static string Border(char left, char mid, char right, int[] widths) =>
-        left + string.Join(mid, widths.Select(w => new string('─', w + 2))) + right;
+        left + string.Join(mid.ToString(), widths.Select(w => new string('─', w + 2))) + right;
 
     /// <summary>绘制一行单元格。</summary>
     private static string Line(IReadOnlyList<string> cells, int[] widths)
