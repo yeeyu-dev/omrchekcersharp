@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+    <RootNamespace>OMRChecker</RootNamespace>
+    <AssemblyName>OMRChecker</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- OpenCV 绑定（含 Windows 原生运行时）；Linux 需另行引用对应 runtime 包 -->
+    <PackageReference Include="OpenCvSharp4.Windows" Version="4.10.0.20241108" />
+    <!-- JSON Schema (draft 2020-12) 校验，对应 Python 的 jsonschema -->
+    <PackageReference Include="JsonSchema.Net" Version="7.3.4" />
+    <!-- PDF 渲染（PDFium），对应 Python 的 PyMuPDF 渲染部分 -->
+    <PackageReference Include="Docnet.Core" Version="2.6.0" />
+    <!-- 读取 PDF 内嵌图片尺寸，用于 pdf_dpi = "auto" 的原生 DPI 推断 -->
+    <PackageReference Include="PdfPig" Version="0.1.16" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- 三份 schema 由 Python 源码中的字典原样导出 -->
+    <EmbeddedResource Include="Schemas\*.json" LogicalName="Schemas.%(Filename)%(Extension)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="OMRChecker.Tests" />
+  </ItemGroup>
+
+</Project>

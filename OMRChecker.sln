@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{085899E4-D6C8-4671-8247-C0D8B2FF5E36}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OMRChecker", "src\OMRChecker\OMRChecker.csproj", "{4059F483-9B6D-40DD-9ECA-A68FF438207C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{651AB612-E657-4F68-9CD7-01EF8ADD3601}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OMRChecker.Tests", "tests\OMRChecker.Tests\OMRChecker.Tests.csproj", "{C0A6B912-8148-40D1-A16E-82D6CC93C9C2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4059F483-9B6D-40DD-9ECA-A68FF438207C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4059F483-9B6D-40DD-9ECA-A68FF438207C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4059F483-9B6D-40DD-9ECA-A68FF438207C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4059F483-9B6D-40DD-9ECA-A68FF438207C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0A6B912-8148-40D1-A16E-82D6CC93C9C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0A6B912-8148-40D1-A16E-82D6CC93C9C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0A6B912-8148-40D1-A16E-82D6CC93C9C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0A6B912-8148-40D1-A16E-82D6CC93C9C2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4059F483-9B6D-40DD-9ECA-A68FF438207C} = {085899E4-D6C8-4671-8247-C0D8B2FF5E36}
+		{C0A6B912-8148-40D1-A16E-82D6CC93C9C2} = {651AB612-E657-4F68-9CD7-01EF8ADD3601}
+	EndGlobalSection
+EndGlobal

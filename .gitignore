@@ -1,0 +1,19 @@
+# Any directory starting with a dot
+**/\.*/
+# Except .github
+!.github/
+
+# Everything in inputs/ and outputs/
+inputs/*
+outputs/*
+
+# .NET build outputs
+**/bin/
+**/obj/
+*.user
+TestResults/
+outputs-csharp-test/
+
+# Misc
+**/.DS_Store
+OMRChecker.wiki/

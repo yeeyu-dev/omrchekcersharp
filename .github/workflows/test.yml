@@ -1,0 +1,34 @@
+name: Test
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - "src/**"
+      - "tests/**"
+      - "samples/**"
+  pull_request:
+    branches: [master]
+
+jobs:
+  test:
+    name: "Build and Test"
+    # OpenCvSharp4.Windows 只提供 Windows 原生库
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.x"
+
+      - name: Build
+        run: dotnet build OMRChecker.sln -c Release
+
+      - name: Test
+        run: dotnet test OMRChecker.sln -c Release --no-build
+        env:
+          OMR_HEADLESS: "1"

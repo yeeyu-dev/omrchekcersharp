@@ -1,0 +1,274 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Udayraj123/OMRChecker/tree/master/src/schemas/evaluation-schema.json",
+  "title": "Evaluation Schema",
+  "description": "OMRChecker evaluation schema i.e. the marking scheme",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "source_type",
+    "options",
+    "marking_schemes"
+  ],
+  "properties": {
+    "additionalProperties": false,
+    "source_type": {
+      "type": "string",
+      "enum": [
+        "csv",
+        "custom"
+      ]
+    },
+    "options": {
+      "type": "object"
+    },
+    "marking_schemes": {
+      "type": "object",
+      "required": [
+        "DEFAULT"
+      ],
+      "patternProperties": {
+        "^DEFAULT$": {
+          "additionalProperties": false,
+          "required": [
+            "correct",
+            "incorrect",
+            "unmarked"
+          ],
+          "type": "object",
+          "properties": {
+            "correct": {
+              "oneOf": [
+                {
+                  "type": "string",
+                  "pattern": "-?(\\d+)(/(\\d+))?"
+                },
+                {
+                  "type": "number"
+                }
+              ]
+            },
+            "incorrect": {
+              "oneOf": [
+                {
+                  "type": "string",
+                  "pattern": "-?(\\d+)(/(\\d+))?"
+                },
+                {
+                  "type": "number"
+                }
+              ]
+            },
+            "unmarked": {
+              "oneOf": [
+                {
+                  "type": "string",
+                  "pattern": "-?(\\d+)(/(\\d+))?"
+                },
+                {
+                  "type": "number"
+                }
+              ]
+            }
+          }
+        },
+        "^(?!DEFAULT$).*": {
+          "additionalProperties": false,
+          "required": [
+            "marking",
+            "questions"
+          ],
+          "type": "object",
+          "properties": {
+            "questions": {
+              "oneOf": [
+                {
+                  "type": "string",
+                  "pattern": "^([^\\.]+|[^\\.\\d]+\\d+\\.{2,3}\\d+)$"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^([^\\.]+|[^\\.\\d]+\\d+\\.{2,3}\\d+)$"
+                  }
+                }
+              ]
+            },
+            "marking": {
+              "additionalProperties": false,
+              "required": [
+                "correct",
+                "incorrect",
+                "unmarked"
+              ],
+              "type": "object",
+              "properties": {
+                "correct": {
+                  "oneOf": [
+                    {
+                      "type": "string",
+                      "pattern": "-?(\\d+)(/(\\d+))?"
+                    },
+                    {
+                      "type": "number"
+                    }
+                  ]
+                },
+                "incorrect": {
+                  "oneOf": [
+                    {
+                      "type": "string",
+                      "pattern": "-?(\\d+)(/(\\d+))?"
+                    },
+                    {
+                      "type": "number"
+                    }
+                  ]
+                },
+                "unmarked": {
+                  "oneOf": [
+                    {
+                      "type": "string",
+                      "pattern": "-?(\\d+)(/(\\d+))?"
+                    },
+                    {
+                      "type": "number"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "source_type": {
+            "const": "csv"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "options": {
+            "additionalProperties": false,
+            "required": [
+              "answer_key_csv_path"
+            ],
+            "dependentRequired": {
+              "answer_key_image_path": [
+                "answer_key_csv_path",
+                "questions_in_order"
+              ]
+            },
+            "type": "object",
+            "properties": {
+              "should_explain_scoring": {
+                "type": "boolean"
+              },
+              "answer_key_csv_path": {
+                "type": "string"
+              },
+              "answer_key_image_path": {
+                "type": "string"
+              },
+              "questions_in_order": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "source_type": {
+            "const": "custom"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "options": {
+            "additionalProperties": false,
+            "required": [
+              "answers_in_order",
+              "questions_in_order"
+            ],
+            "type": "object",
+            "properties": {
+              "should_explain_scoring": {
+                "type": "boolean"
+              },
+              "answers_in_order": {
+                "oneOf": [
+                  {
+                    "type": "array",
+                    "items": {
+                      "oneOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          },
+                          "minItems": 2
+                        },
+                        {
+                          "type": "array",
+                          "items": {
+                            "type": "array",
+                            "items": false,
+                            "minItems": 2,
+                            "maxItems": 2,
+                            "prefixItems": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "oneOf": [
+                                  {
+                                    "type": "string",
+                                    "pattern": "-?(\\d+)(/(\\d+))?"
+                                  },
+                                  {
+                                    "type": "number"
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              "questions_in_order": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "enable_evaluation_table_to_csv": {
+                "type": "boolean",
+                "default": false
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}
