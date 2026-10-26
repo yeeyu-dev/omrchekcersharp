@@ -1,5 +1,7 @@
 # OMRChecker（C# / .NET 8）
 
+[![Test](https://github.com/yeeyu-dev/omrchekcersharp/actions/workflows/test.yml/badge.svg)](https://github.com/yeeyu-dev/omrchekcersharp/actions/workflows/test.yml)
+
 本项目是 [OMRChecker](https://github.com/Udayraj123/OMRChecker)（原作者 Udayraj Deshmukh，Python 实现）的 C# 移植版，用于识别答题卡（OMR）并自动评分。
 输入文件格式（`template.json` / `config.json` / `evaluation.json`）与原项目完全兼容；模板编写方法、样例说明等可参考原项目文档 [docs/upstream-README.md](docs/upstream-README.md)（其中的 Python 安装 / 运行命令已不适用）。
 
