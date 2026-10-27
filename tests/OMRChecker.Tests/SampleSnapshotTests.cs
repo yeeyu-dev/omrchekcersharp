@@ -1,4 +1,5 @@
 using System.Text.RegularExpressions;
+using OMRChecker.Utils;
 using Xunit;
 
 namespace OMRChecker.Tests;
@@ -56,7 +57,7 @@ public sealed class SampleSnapshotTests
 
             var actual = Directory.GetFiles(outputDir, "*.csv", SearchOption.AllDirectories)
                 .ToDictionary(
-                    f => NormalizeKey(Path.GetRelativePath(outputDir, f)),
+                    f => NormalizeKey(NetFxCompat.GetRelativePath(outputDir, f)),
                     f => NormalizeLines(File.ReadAllText(f)));
 
             foreach (var (file, expectedLines) in expected)

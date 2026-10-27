@@ -2,7 +2,10 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net48</TargetFramework>
+    <!-- OpenCvSharp4 原生库为 x64，必须关闭 Framework exe 默认的 Prefer32Bit -->
+    <PlatformTarget>x64</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <LangVersion>latest</LangVersion>
@@ -19,6 +22,11 @@
     <PackageReference Include="Docnet.Core" Version="2.6.0" />
     <!-- 读取 PDF 内嵌图片尺寸，用于 pdf_dpi = "auto" 的原生 DPI 推断 -->
     <PackageReference Include="PdfPig" Version="0.1.16" />
+    <!-- 为 net48 补齐 record/init/required/Index/Range 等新语法所需的编译器类型 -->
+    <PackageReference Include="PolySharp" Version="1.15.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>

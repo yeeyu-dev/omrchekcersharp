@@ -1,4 +1,4 @@
-# OMRChecker（C# / .NET 8）
+# OMRChecker（C# / .NET Framework 4.8）
 
 [![Test](https://github.com/yeeyu-dev/omrchekcersharp/actions/workflows/test.yml/badge.svg)](https://github.com/yeeyu-dev/omrchekcersharp/actions/workflows/test.yml)
 
@@ -7,8 +7,13 @@
 
 ## 环境要求
 
-- .NET SDK 8.0+
-- Windows x64（OpenCV 原生库来自 `OpenCvSharp4.Windows`；Linux 需改为引用对应的 OpenCvSharp runtime 包）
+- 开发：.NET SDK 8.0+（或 Visual Studio 2022 / 2019 16.8+）及 .NET Framework 4.8 开发包
+- 运行：Windows x64，.NET Framework 4.8+（Win10 1903 及以后、Win11 自带；Win10 1607+ 可离线安装）
+- 运行：Microsoft Visual C++ 2015-2022 x64 运行库（OpenCV 原生库 `OpenCvSharpExtern.dll` 依赖）
+
+客户机部署步骤与环境检查方法见 [docs/deployment.md](docs/deployment.md)。
+
+> 目标框架为 `net48`，新版 C# 语法所需的编译器类型由 PolySharp 补齐，缺失的 BCL API 见 `src/OMRChecker/Utils/NetFxCompat.cs`。
 
 > 本机全局 NuGet 源（`10.100.5.132`）当前返回 502，因此根目录的 `nuget.config` 只针对本解决方案改用 nuget.org。若内网源恢复，可删除该文件。
 

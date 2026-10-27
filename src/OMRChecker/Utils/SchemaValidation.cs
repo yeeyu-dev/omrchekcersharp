@@ -64,7 +64,7 @@ public static class SchemaValidation
         foreach (var detail in details)
         {
             var segments = detail.InstanceLocation.ToString()
-                .Split('/', StringSplitOptions.RemoveEmptyEntries)
+                .Split(new[] { '/' }, StringSplitOptions.RemoveEmptyEntries)
                 .Select(s => s.Replace("~1", "/").Replace("~0", "~"))
                 .ToArray();
             var key = segments.Length > 0 ? segments[0] : "$root";

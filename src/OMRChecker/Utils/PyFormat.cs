@@ -29,7 +29,7 @@ public static class PyFormat
         if (value == Math.Floor(value) && Math.Abs(value) < 1e16)
         {
             var integral = ((long)value).ToString(CultureInfo.InvariantCulture);
-            if (value == 0 && double.IsNegative(value))
+            if (value == 0 && BitConverter.DoubleToInt64Bits(value) < 0)
             {
                 integral = "-0";
             }
@@ -37,7 +37,25 @@ public static class PyFormat
             return integral + ".0";
         }
 
-        return value.ToString("R", CultureInfo.InvariantCulture).Replace("E", "e");
+        return ShortestRoundTrip(value).Replace("E", "e");
+    }
+
+    /// <summary>
+    /// 最短往返表示。.NET Framework 的 "R" 不保证最短（如输出 70.666666666666686 而非 70.66666666666669），
+    /// 因此按 G15 → G16 → G17 依次尝试，取第一个能解析回原值的结果。
+    /// </summary>
+    private static string ShortestRoundTrip(double value)
+    {
+        for (var precision = 15; precision < 17; precision++)
+        {
+            var text = value.ToString("G" + precision, CultureInfo.InvariantCulture);
+            if (double.Parse(text, CultureInfo.InvariantCulture) == value)
+            {
+                return text;
+            }
+        }
+
+        return value.ToString("G17", CultureInfo.InvariantCulture);
     }
 
     /// <summary>

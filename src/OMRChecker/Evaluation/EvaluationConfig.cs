@@ -112,7 +112,7 @@ public sealed class EvaluationConfig
             throw new OmrCheckerException("Some questions are missing in the OMR response for the given answer key");
         }
 
-        var missingPrefixed = omrResponse.Keys.Where(k => k.StartsWith('q') && !allQuestions.Contains(k))
+        var missingPrefixed = omrResponse.Keys.Where(k => k.StartsWith("q", StringComparison.Ordinal) && !allQuestions.Contains(k))
             .OrderBy(q => q, StringComparer.Ordinal).ToList();
         if (missingPrefixed.Count > 0)
         {

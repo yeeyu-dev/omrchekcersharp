@@ -43,7 +43,10 @@ public static class Entry
 {
     private static readonly string[] ImageExtensions = { ".png", ".jpg", ".jpeg", ".pdf" };
     private static readonly StringComparison PathComparison =
-        OperatingSystem.IsWindows() ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal;
+        Environment.OSVersion.Platform == PlatformID.Win32NT ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal;
+
+    private static readonly StringComparer PathComparer =
+        PathComparison == StringComparison.OrdinalIgnoreCase ? StringComparer.OrdinalIgnoreCase : StringComparer.Ordinal;
 
     private static readonly Stats Stats = new();
 
@@ -88,17 +91,17 @@ public static class Entry
         }
 
         var subdirs = Directory.GetDirectories(currDir)
-            .OrderBy(d => d, StringComparer.FromComparison(PathComparison))
+            .OrderBy(d => d, PathComparer)
             .ToList();
 
-        var relative = Path.GetRelativePath(rootDir, currDir);
+        var relative = NetFxCompat.GetRelativePath(rootDir, currDir);
         var outputDir = relative == "." ? args.OutputDir : Path.Combine(args.OutputDir, relative);
         var paths = new OutputPaths(outputDir);
 
         // 本级待处理图片
         var omrFiles = Directory.GetFiles(currDir)
             .Where(f => ImageExtensions.Contains(Path.GetExtension(f), StringComparer.OrdinalIgnoreCase))
-            .OrderBy(f => f, StringComparer.FromComparison(PathComparison))
+            .OrderBy(f => f, PathComparer)
             .ToList();
 
         // 排除预处理器使用的文件（标记图、参考图等）
@@ -401,6 +404,6 @@ public static class Entry
     {
         var normalized = dir.Replace(Path.AltDirectorySeparatorChar, Path.DirectorySeparatorChar);
         var trimmed = normalized.TrimEnd(Path.DirectorySeparatorChar);
-        return trimmed.Length == 0 || trimmed.EndsWith(':') ? normalized : trimmed;
+        return trimmed.Length == 0 || trimmed.EndsWith(":", StringComparison.Ordinal) ? normalized : trimmed;
     }
 }
